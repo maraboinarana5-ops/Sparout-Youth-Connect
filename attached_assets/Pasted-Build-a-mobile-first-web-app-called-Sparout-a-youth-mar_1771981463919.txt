@@ -1,0 +1,45 @@
+Build a mobile-first web app called Sparout — a youth martial arts platform connecting students, verified masters, parents, and tournament organizers.
+
+Tech stack: Next.js, Supabase (auth + database + storage), Tailwind CSS.
+
+Color scheme: primary orange #FF6B35, secondary navy #1B2A4A, white backgrounds, rounded corners 16px, card-based UI with subtle shadows.
+
+DATABASE TABLES:
+- masters (id, name, email, phone, bio, photo_url, martial_arts array, years_experience, verified boolean, rating decimal, price_per_class decimal, city, state, lat, lng, created_at)
+- students (id, name, email, age, martial_art, belt_rank, goal, parent_id, created_at)
+- parents (id, name, email, phone, created_at)
+- classes (id, master_id, title, martial_art, date, time, duration_minutes, price, max_students, spots_remaining, location, created_at)
+- bookings (id, student_id, class_id, status enum pending/confirmed/cancelled, created_at)
+- tournaments (id, name, description, martial_art, age_min, age_max, date, location, city, state, entry_fee, max_participants, spots_remaining, rules, created_at)
+- tournament_registrations (id, tournament_id, student_id, weight_class, status, created_at)
+- reviews (id, master_id, student_id, rating integer 1-5, comment, created_at)
+
+AUTH: Supabase auth with email signup. Three roles: student, master, parent.
+
+PAGES TO BUILD:
+
+1. Landing page — hero with "Where Champions Begin", three role entry cards (Student, Master, Parent), trust badges (verified masters, safe community, parent-monitored), Get Started CTA.
+
+2. Role-based signup — Student: name, age, martial art multi-select, belt rank, goal. Master: name, bio, martial arts, experience, price, city, photo upload, certification upload. Parent: name, email, link to child's account.
+
+3. Discover Masters — search bar with filters (style, distance, rating, price range), master cards showing photo, name, verified badge, art styles, rating, price, "Book" button.
+
+4. Master Profile — hero photo, verified badge, name, bio, style tags, stats (experience, students, wins, rating), class schedule with bookable slots, reviews section, credentials. Sticky "Book a Class" button.
+
+5. Booking flow — select date/time from available slots, confirm details (master, style, time, price), success confirmation.
+
+6. Tournament Hub — featured tournament banner, filter tabs (All, My Style, Nearby), tournament cards (name, style, age bracket, date, spots remaining, fee, Register button).
+
+7. Tournament Detail + Registration — event info, rules, schedule, registered count, registration form (weight class, waiver checkbox), confirmation.
+
+8. Student Dashboard — greeting, current belt with progress bar, upcoming classes, recent achievements, training stats, recommended masters.
+
+9. Parent Dashboard — child's profile card, belt rank, activity feed, weekly progress, upcoming schedule, master contact with verified badges, parental controls.
+
+10. Master Dashboard — earnings overview, upcoming classes, student roster, booking requests (accept/decline), tournament creation form, reviews summary.
+
+11. Navigation — bottom nav bar with: Home, Discover, Tournaments, Progress, Profile.
+
+Seed the database with 6 sample masters across different martial arts (Karate, Taekwondo, Jiu-Jitsu, Boxing, MMA, Muay Thai), 3 sample tournaments, and sample reviews.
+
+Make it fully responsive, mobile-first, fast loading. Deploy live.
