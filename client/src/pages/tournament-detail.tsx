@@ -17,6 +17,7 @@ export default function TournamentDetail() {
   const tournamentId = params?.id;
   const { toast } = useToast();
   const [weightClass, setWeightClass] = useState("");
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [waiverAccepted, setWaiverAccepted] = useState(false);
   const [registered, setRegistered] = useState(false);
 
@@ -87,7 +88,7 @@ export default function TournamentDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen bg-background pb-[100px]">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
           <Link href="/tournaments">
@@ -174,6 +175,18 @@ export default function TournamentDetail() {
 
             <div className="flex items-start gap-2">
               <Checkbox
+                id="age-confirm"
+                checked={ageConfirmed}
+                onCheckedChange={(v) => setAgeConfirmed(v === true)}
+                data-testid="checkbox-age-confirm"
+              />
+              <label htmlFor="age-confirm" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
+                I confirm the participant is between {tournament.ageMin} and {tournament.ageMax} years of age and meets the age requirements for this tournament.
+              </label>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <Checkbox
                 id="waiver"
                 checked={waiverAccepted}
                 onCheckedChange={(v) => setWaiverAccepted(v === true)}
@@ -189,7 +202,7 @@ export default function TournamentDetail() {
         <Button
           className="w-full bg-[#FF6B35] text-white"
           size="lg"
-          disabled={!weightClass || !waiverAccepted || registerMutation.isPending}
+          disabled={!weightClass || !ageConfirmed || !waiverAccepted || registerMutation.isPending}
           onClick={() => registerMutation.mutate()}
           data-testid="button-submit-registration"
         >

@@ -12,7 +12,7 @@ export default function Profile() {
 
   if (!isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-background pb-24 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-background pb-[100px] flex items-center justify-center px-4">
         <div className="text-center max-w-sm">
           <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8 text-muted-foreground" />
@@ -35,7 +35,7 @@ export default function Profile() {
   const roleLabel = user.role === "master" ? "Master Account" : user.role === "parent" ? "Parent Account" : "Student Account";
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pb-[100px]">
       <div className="bg-gradient-to-br from-[#1B2A4A] to-[#2D4470] p-6">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-4">
