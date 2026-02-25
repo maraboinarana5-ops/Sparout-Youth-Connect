@@ -43,7 +43,7 @@ export default function Dashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-background pb-[100px] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-background pb-[120px] flex items-center justify-center px-4">
         <div className="text-center max-w-sm">
           <TrendingUp className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-foreground mb-2">Track Your Progress</h2>
@@ -57,7 +57,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-[100px]">
+    <div className="min-h-screen bg-background pb-[120px]">
       <div className="bg-gradient-to-br from-[#1B2A4A] to-[#2D4470] p-6 pb-8">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-6">

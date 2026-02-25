@@ -28,7 +28,7 @@ export default function MasterProfile() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background pb-[100px]">
+      <div className="min-h-screen bg-background pb-[120px]">
         <div className="h-64 bg-muted" />
         <div className="max-w-3xl mx-auto px-4 -mt-16 relative z-10 space-y-4">
           <Skeleton className="h-32 w-full rounded-md" />
@@ -50,7 +50,7 @@ export default function MasterProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-[100px]">
+    <div className="min-h-screen bg-background pb-[120px]">
       <div className="relative h-64 md:h-80 bg-gradient-to-br from-[#1B2A4A] to-[#243656]">
         <div className="absolute inset-0 bg-black/20" />
         {master.photoUrl && (
@@ -191,7 +191,7 @@ export default function MasterProfile() {
         )}
       </div>
 
-      <div className="fixed bottom-[72px] left-0 right-0 bg-background/95 backdrop-blur-sm border-t p-4 z-40">
+      <div className="fixed bottom-[80px] left-0 right-0 bg-background/95 backdrop-blur-sm border-t p-4 z-40">
         <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
           <div>
             <div className="text-sm text-muted-foreground">Starting at</div>
