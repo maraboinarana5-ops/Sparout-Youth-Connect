@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, CheckCircle2, Loader2, Target, Flame, Eye } from "lucide-react";
+import { ArrowLeft, Loader2, Target, Flame, Eye } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth";
 import logoPath from "@assets/ChatGPT_Image_Feb_24,_2026,_08_05_48_PM_1771981595797.png";
 
 const martialArts = ["Karate", "Taekwondo", "Jiu-Jitsu", "Boxing", "MMA", "Muay Thai"];
@@ -18,10 +19,10 @@ const beltRanks = ["White Belt", "Yellow Belt", "Orange Belt", "Green Belt", "Bl
 export default function Signup() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { login } = useAuth();
   const urlParams = new URLSearchParams(window.location.search);
   const initialRole = urlParams.get("role") || "";
   const [role, setRole] = useState(initialRole);
-  const [success, setSuccess] = useState(false);
 
   const [studentForm, setStudentForm] = useState({ name: "", age: "", martialArt: "", beltRank: "", goal: "" });
   const [masterForm, setMasterForm] = useState({ name: "", email: "", bio: "", martialArts: [] as string[], yearsExperience: "", pricePerClass: "", city: "", state: "" });
@@ -36,7 +37,19 @@ export default function Signup() {
       });
       return res.json();
     },
-    onSuccess: () => setSuccess(true),
+    onSuccess: (data) => {
+      login({
+        id: data.id,
+        name: studentForm.name,
+        email: `${studentForm.name.toLowerCase().replace(/\s/g, "")}@sparout.com`,
+        role: "student",
+        martialArt: studentForm.martialArt,
+        beltRank: studentForm.beltRank,
+        age: parseInt(studentForm.age),
+      });
+      toast({ title: "Welcome to Sparout!", description: "Your student account is ready." });
+      setLocation("/dashboard");
+    },
     onError: (e: Error) => toast({ title: "Error", description: e.message, variant: "destructive" }),
   });
 
@@ -50,7 +63,16 @@ export default function Signup() {
       });
       return res.json();
     },
-    onSuccess: () => setSuccess(true),
+    onSuccess: (data) => {
+      login({
+        id: data.id,
+        name: masterForm.name,
+        email: masterForm.email,
+        role: "master",
+      });
+      toast({ title: "Welcome to Sparout!", description: "Your master account is ready." });
+      setLocation("/master-dashboard");
+    },
     onError: (e: Error) => toast({ title: "Error", description: e.message, variant: "destructive" }),
   });
 
@@ -59,32 +81,22 @@ export default function Signup() {
       const res = await apiRequest("POST", "/api/parents", parentForm);
       return res.json();
     },
-    onSuccess: () => setSuccess(true),
+    onSuccess: (data) => {
+      login({
+        id: data.id,
+        name: parentForm.name,
+        email: parentForm.email,
+        role: "parent",
+      });
+      toast({ title: "Welcome to Sparout!", description: "Your parent account is ready." });
+      setLocation("/parent-dashboard");
+    },
     onError: (e: Error) => toast({ title: "Error", description: e.message, variant: "destructive" }),
   });
 
-  if (success) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center px-4">
-        <div className="text-center max-w-md">
-          <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-10 h-10 text-green-500" />
-          </div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">Welcome to Sparout!</h1>
-          <p className="text-muted-foreground mb-6">Your account has been created successfully.</p>
-          <Link href="/discover">
-            <Button className="w-full bg-[#FF6B35] text-white" data-testid="button-explore">
-              Start Exploring
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   if (!role) {
     return (
-      <div className="min-h-screen bg-background pb-20">
+      <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
           <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
             <Link href="/"><Button variant="ghost" size="icon" data-testid="button-back"><ArrowLeft className="h-4 w-4" /></Button></Link>
@@ -140,7 +152,7 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => setRole("")} data-testid="button-back">
@@ -149,7 +161,7 @@ export default function Signup() {
           <h1 className="font-bold text-lg text-foreground capitalize">{role} Registration</h1>
         </div>
       </header>
-      <div className="max-w-lg mx-auto px-4 py-6">
+      <div className="max-w-lg mx-auto px-4 py-6 pb-10">
         {role === "student" && (
           <Card className="p-6 border-card-border">
             <div className="space-y-4">

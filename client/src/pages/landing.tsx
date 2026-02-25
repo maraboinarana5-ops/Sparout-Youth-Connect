@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ShieldCheck, Users, Eye, Star, ChevronRight, Flame, Trophy, Target } from "lucide-react";
+import { useAuth } from "@/lib/auth";
 import logoPath from "@assets/ChatGPT_Image_Feb_24,_2026,_08_05_48_PM_1771981595797.png";
 
 export default function Landing() {
+  const { user, isAuthenticated } = useAuth();
+
+  const dashboardPath = !isAuthenticated ? "/signup" : user?.role === "master" ? "/master-dashboard" : user?.role === "parent" ? "/parent-dashboard" : "/dashboard";
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
@@ -21,8 +26,8 @@ export default function Landing() {
             <Link href="/tournaments">
               <Button variant="ghost" size="sm" data-testid="link-tournaments">Tournaments</Button>
             </Link>
-            <Link href="/signup">
-              <Button size="sm" data-testid="button-get-started">Get Started</Button>
+            <Link href={dashboardPath}>
+              <Button size="sm" data-testid="button-get-started">{isAuthenticated ? "Dashboard" : "Get Started"}</Button>
             </Link>
           </div>
         </div>

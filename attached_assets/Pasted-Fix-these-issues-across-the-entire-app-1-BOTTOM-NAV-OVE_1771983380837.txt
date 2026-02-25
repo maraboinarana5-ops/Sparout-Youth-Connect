@@ -1,0 +1,27 @@
+Fix these issues across the entire app:
+
+1. BOTTOM NAV OVERLAP: The bottom navigation bar overlaps and hides content on every page. Add sufficient bottom padding (at least 100px or pb-24) to all page containers so no content is hidden behind the nav bar.
+
+2. FAKE STATS: On the landing page, remove the "800+ Active Students, 50+ Verified Masters, 6 Martial Arts, 25+ Tournaments" stats section entirely. Replace it with a simple section that says "Join the growing community of young martial artists, verified masters, and dedicated parents."
+
+3. SIGNUP AND AUTH FLOW: Make "Get Started", "Join Sparout Today", "Book", and "Register" buttons all lead to a proper signup/login page. Build a full auth flow with: email/password signup, role selection (Student, Master, Parent), login page, and redirect to the appropriate dashboard after login. Use session-based auth or localStorage for now.
+
+4. MASTER PROFILE PAGE: Clicking on any master card on the Discover page should open a full master profile page showing: large hero photo, name, verified badge, bio, martial art styles, years of experience, rating, price per class, class schedule with available time slots, student reviews, and a sticky "Book a Class" button at the bottom.
+
+5. STUDENT DASHBOARD (Progress tab): Build a student dashboard showing: welcome greeting with name, current belt rank with colored belt icon, XP progress bar to next belt, upcoming booked classes, recent achievements as badge cards, training stats (classes this month, hours trained), and recommended masters.
+
+6. PARENT DASHBOARD: Build a parent dashboard showing: child's name and belt rank, activity feed of recent classes, weekly progress summary, upcoming schedule, and master contact list with verified badges.
+
+7. MASTER DASHBOARD: Build a master dashboard showing: earnings overview, upcoming classes list, student roster, incoming booking requests with accept/decline buttons, and reviews summary.
+
+8. PROFILE PAGE: Build a profile page showing: user photo, name, role, email, edit profile button, notification preferences toggle, and logout button.
+
+9. BOOKING FLOW: When a user clicks "Book" on a master card or profile, show a 3-step flow: Step 1 select date and time from available slots, Step 2 confirm details (master, style, time, price), Step 3 success confirmation with "View My Bookings" button.
+
+10. TOURNAMENT REGISTRATION FLOW: When clicking "Register" on a tournament, show: tournament details summary, weight class selection, age verification, waiver agreement checkbox, confirm registration button, success page with registration confirmation.
+
+11. MOBILE RESPONSIVENESS: Ensure every page looks perfect on mobile screens (375px width). Cards should stack vertically on small screens. Text should never overflow. Buttons should be full-width on mobile.
+
+12. NAVIGATION: Make sure all nav links work — both the top navbar and bottom navigation bar should link to the correct pages. Active page should be highlighted in the bottom nav.
+
+Keep the same color scheme (orange #FF6B35, navy #1B2A4A), same fonts, same design language. Make all sample data realistic. Every button should do something. No dead ends.
