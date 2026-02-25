@@ -4,7 +4,7 @@
 type AppRoutes = "/" | "/about" | "/admin" | "/admin/events" | "/admin/federations" | "/admin/masters" | "/admin/users" | "/bookings" | "/contact" | "/dashboard/parent" | "/events" | "/events/[id]" | "/login" | "/master/[username]" | "/masters" | "/onboarding" | "/partners" | "/settings" | "/signup" | "/student/[username]"
 type AppRouteHandlerRoutes = "/api/health"
 type PageRoutes = never
-type LayoutRoutes = "/"
+type LayoutRoutes = "/" | "/admin"
 type RedirectRoutes = never
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes | AppRouteHandlerRoutes
@@ -39,6 +39,7 @@ export type ParamsOf<Route extends Routes> = ParamMap[Route]
 
 interface LayoutSlotMap {
   "/": never
+  "/admin": never
 }
 
 

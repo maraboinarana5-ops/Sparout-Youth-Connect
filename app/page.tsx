@@ -16,6 +16,7 @@ const martialArts = [
   { name: "Kalaripayattu", emoji: null },
   { name: "Silambam", emoji: null },
   { name: "Gatka", emoji: null },
+  { name: "Ring Fight", emoji: null },
 ];
 
 const featuredMasters = [
