@@ -6,7 +6,7 @@ import { ArrowLeft, Search, Filter, Users, Shield, UserCheck, UserX, MoreVertica
 const allUsers = [
   { id: 1, name: "Sensei Rajesh Kumar", email: "rajesh@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 15, 2026", city: "Mumbai" },
   { id: 2, name: "Coach Priya Sharma", email: "priya@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 20, 2026", city: "Hyderabad" },
-  { id: 3, name: "Master Chen Wei", email: "chen@sparout.com", role: "master", status: "active", verified: true, joined: "Dec 10, 2025", city: "Delhi" },
+  { id: 3, name: "Guru Ravi Nair", email: "ravi@sparout.com", role: "master", status: "active", verified: true, joined: "Dec 10, 2025", city: "Chennai" },
   { id: 4, name: "Aarav Mehta", email: "aarav@example.com", role: "student", status: "active", verified: false, joined: "Feb 24, 2026", city: "Mumbai" },
   { id: 5, name: "Sneha Kapoor", email: "sneha@example.com", role: "student", status: "active", verified: false, joined: "Feb 20, 2026", city: "Bangalore" },
   { id: 6, name: "Ravi Kumar", email: "ravi@example.com", role: "parent", status: "active", verified: false, joined: "Feb 22, 2026", city: "Delhi" },

@@ -6,7 +6,7 @@ import { ArrowLeft, Search, Shield, Star, MapPin, Check, X, Eye } from "lucide-r
 const masters = [
   { id: 1, name: "Sensei Rajesh Kumar", username: "sensei-rajesh", style: "Karate", city: "Mumbai", rating: 4.9, students: 45, verified: true, featured: true, status: "active" },
   { id: 2, name: "Coach Priya Sharma", username: "coach-priya", style: "MMA", city: "Hyderabad", rating: 4.8, students: 32, verified: true, featured: false, status: "active" },
-  { id: 3, name: "Master Chen Wei", username: "master-chen", style: "Kung Fu", city: "Delhi", rating: 4.7, students: 60, verified: true, featured: true, status: "active" },
+  { id: 3, name: "Guru Ravi Nair", username: "guru-ravi", style: "Kalaripayattu", city: "Chennai", rating: 4.7, students: 60, verified: true, featured: true, status: "active" },
   { id: 4, name: "Coach Deepak Rao", username: "coach-deepak", style: "Boxing", city: "Chennai", rating: 0, students: 0, verified: false, featured: false, status: "pending" },
   { id: 5, name: "Guru Meera Devi", username: "guru-meera", style: "Kalaripayattu", city: "Kochi", rating: 0, students: 0, verified: false, featured: false, status: "pending" },
 ];

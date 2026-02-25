@@ -119,9 +119,9 @@ const featuredMasters = [
     },
     {
         id: 3,
-        name: "Master Chen Wei",
-        style: "Kung Fu",
-        city: "Delhi",
+        name: "Guru Ravi Nair",
+        style: "Kalaripayattu",
+        city: "Bangalore",
         rating: 4.7,
         reviews: 76,
         price: 1000,

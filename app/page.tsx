@@ -21,7 +21,7 @@ const martialArts = [
 const featuredMasters = [
   { id: 1, name: "Sensei Rajesh Kumar", style: "Karate", city: "Mumbai", rating: 4.9, reviews: 128, price: 800, experience: 15, verified: true, photo: null },
   { id: 2, name: "Coach Priya Sharma", style: "MMA", city: "Hyderabad", rating: 4.8, reviews: 94, price: 1200, experience: 10, verified: true, photo: null },
-  { id: 3, name: "Master Chen Wei", style: "Kung Fu", city: "Delhi", rating: 4.7, reviews: 76, price: 1000, experience: 20, verified: true, photo: null },
+  { id: 3, name: "Guru Ravi Nair", style: "Kalaripayattu", city: "Bangalore", rating: 4.7, reviews: 76, price: 1000, experience: 20, verified: true, photo: null },
   { id: 4, name: "Guru Arjun Singh", style: "Gatka", city: "Amritsar", rating: 4.9, reviews: 52, price: 600, experience: 25, verified: true, photo: null },
 ];
 

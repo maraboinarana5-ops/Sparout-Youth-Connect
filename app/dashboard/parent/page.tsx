@@ -21,7 +21,7 @@ const children = [
 const parentBookings = [
   { id: 1, child: "Aarav Mehta", master: "Sensei Rajesh Kumar", date: "Feb 26, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
   { id: 2, child: "Aarav Mehta", master: "Sensei Rajesh Kumar", date: "Feb 28, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
-  { id: 3, child: "Aarav Mehta", master: "Sensei Akiko Tanaka", date: "Mar 1, 2026", time: "10:00 AM", style: "Judo", status: "pending" },
+  { id: 3, child: "Aarav Mehta", master: "Coach Deepika Reddy", date: "Mar 1, 2026", time: "10:00 AM", style: "Judo", status: "pending" },
 ];
 
 export default function ParentDashboard() {

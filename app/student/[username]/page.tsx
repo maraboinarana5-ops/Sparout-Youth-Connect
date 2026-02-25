@@ -13,7 +13,7 @@ const studentData: Record<string, any> = {
     profileCompleteness: 85,
     journey: [
       { style: "Karate", rank: "Purple Belt (3rd Kyu)", startDate: "2023", achievements: ["State Championship Bronze 2025", "District Champion 2024", "Best Kata Award 2024"], instructor: "Sensei Rajesh Kumar" },
-      { style: "Judo", rank: "Yellow Belt", startDate: "2025", achievements: ["Regional Competition Participant"], instructor: "Sensei Akiko Tanaka" },
+      { style: "Judo", rank: "Yellow Belt", startDate: "2025", achievements: ["Regional Competition Participant"], instructor: "Coach Deepika Reddy" },
     ],
     stats: { totalTraining: "3 years", competitions: 5, medals: 3, styles: 2 },
     upcomingClasses: [
@@ -30,7 +30,7 @@ const studentData: Record<string, any> = {
     goals: "Compete in amateur MMA by end of 2026.",
     profileCompleteness: 70,
     journey: [
-      { style: "Jiu-Jitsu", rank: "Blue Belt", startDate: "2024", achievements: ["Bangalore Open Silver 2025"], instructor: "Sensei Akiko Tanaka" },
+      { style: "Jiu-Jitsu", rank: "Blue Belt", startDate: "2024", achievements: ["Bangalore Open Silver 2025"], instructor: "Coach Deepika Reddy" },
       { style: "MMA", rank: "Beginner", startDate: "2026", achievements: [], instructor: "Coach Priya Sharma" },
     ],
     stats: { totalTraining: "2 years", competitions: 2, medals: 1, styles: 2 },
