@@ -18,7 +18,7 @@ export function BottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t z-50 safe-area-bottom" data-testid="nav-bottom">
+    <nav className="fixed bottom-0 left-0 w-full bg-white dark:bg-background border-t z-[9999]" style={{ transform: 'none' }} data-testid="nav-bottom">
       <div className="max-w-lg mx-auto flex items-center justify-around py-2 px-1">
         {navItems.map((item) => {
           const active = isActive(item.path);
