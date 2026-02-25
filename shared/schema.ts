@@ -1,143 +1,167 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, decimal, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, decimal, boolean, timestamp, pgEnum, jsonb, serial } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const bookingStatusEnum = pgEnum("booking_status", ["pending", "confirmed", "cancelled"]);
-export const userRoleEnum = pgEnum("user_role", ["student", "master", "parent"]);
+export const userRoleEnum = pgEnum("user_role", ["master", "student", "parent", "admin"]);
+export const bookingStatusEnum = pgEnum("booking_status", ["pending", "confirmed", "completed", "cancelled"]);
 
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
+  email: text("email").notNull().unique(),
   password: text("password").notNull(),
   role: userRoleEnum("role").notNull().default("student"),
+  fullName: text("full_name").notNull(),
+  avatarUrl: text("avatar_url"),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const masters = pgTable("masters", {
+export const masterProfiles = pgTable("master_profiles", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
+  userId: varchar("user_id").notNull(),
+  displayName: text("display_name").notNull(),
+  username: text("username").notNull().unique(),
   bio: text("bio"),
+  coverPhotoUrl: text("cover_photo_url"),
   photoUrl: text("photo_url"),
-  martialArts: text("martial_arts").array().notNull(),
-  yearsExperience: integer("years_experience").notNull().default(0),
-  verified: boolean("verified").notNull().default(false),
-  rating: decimal("rating", { precision: 3, scale: 2 }).default("0"),
-  pricePerClass: decimal("price_per_class", { precision: 8, scale: 2 }).notNull(),
   city: text("city").notNull(),
   state: text("state").notNull(),
-  studentsCount: integer("students_count").default(0),
-  winsCount: integer("wins_count").default(0),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const students = pgTable("students", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  age: integer("age").notNull(),
-  martialArt: text("martial_art").notNull(),
-  beltRank: text("belt_rank").notNull(),
-  goal: text("goal"),
-  parentId: varchar("parent_id"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const parents = pgTable("parents", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
+  country: text("country").notNull().default("India"),
+  styles: text("styles").array().notNull(),
+  experienceYears: integer("experience_years").notNull().default(0),
+  certifications: text("certifications").array(),
+  federationAffiliations: text("federation_affiliations").array(),
+  trainingFormats: text("training_formats").array(),
+  pricePerSession: decimal("price_per_session", { precision: 10, scale: 2 }),
+  priceMonthly: decimal("price_monthly", { precision: 10, scale: 2 }),
+  currency: text("currency").notNull().default("INR"),
+  schedule: jsonb("schedule"),
   phone: text("phone"),
+  whatsapp: text("whatsapp"),
+  isVerified: boolean("is_verified").notNull().default(false),
+  galleryUrls: text("gallery_urls").array(),
+  gender: text("gender"),
+  rating: decimal("rating", { precision: 3, scale: 2 }).default("0"),
+  reviewCount: integer("review_count").default(0),
+  studentsCount: integer("students_count").default(0),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-export const classes = pgTable("classes", {
+export const studentProfiles = pgTable("student_profiles", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  masterId: varchar("master_id").notNull(),
-  title: text("title").notNull(),
-  martialArt: text("martial_art").notNull(),
-  date: text("date").notNull(),
-  time: text("time").notNull(),
-  durationMinutes: integer("duration_minutes").notNull().default(60),
-  price: decimal("price", { precision: 8, scale: 2 }).notNull(),
-  maxStudents: integer("max_students").notNull().default(10),
-  spotsRemaining: integer("spots_remaining").notNull().default(10),
-  location: text("location").notNull(),
+  userId: varchar("user_id").notNull(),
+  displayName: text("display_name").notNull(),
+  username: text("username").notNull().unique(),
+  bio: text("bio"),
+  photoUrl: text("photo_url"),
+  age: integer("age"),
+  city: text("city"),
+  state: text("state"),
+  parentId: varchar("parent_id"),
+  goals: text("goals"),
+  profileCompleteness: integer("profile_completeness").default(0),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const martialArtsJourney = pgTable("martial_arts_journey", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  studentId: varchar("student_id").notNull(),
+  style: text("style").notNull(),
+  startDate: text("start_date"),
+  currentRank: text("current_rank"),
+  achievements: jsonb("achievements"),
+  certificateUrls: text("certificate_urls").array(),
 });
 
 export const bookings = pgTable("bookings", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   studentId: varchar("student_id").notNull(),
-  classId: varchar("class_id").notNull(),
+  masterId: varchar("master_id").notNull(),
+  preferredDate: text("preferred_date"),
+  preferredTime: text("preferred_time"),
+  martialArt: text("martial_art"),
+  message: text("message"),
   status: bookingStatusEnum("status").notNull().default("pending"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const events = pgTable("events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  federationId: varchar("federation_id"),
+  title: text("title").notNull(),
+  description: text("description"),
+  date: text("date").notNull(),
+  endDate: text("end_date"),
+  city: text("city").notNull(),
+  state: text("state").notNull(),
+  martialArt: text("martial_art"),
+  ageGroups: text("age_groups").array(),
+  weightClasses: text("weight_classes").array(),
+  registrationUrl: text("registration_url"),
+  entryFee: text("entry_fee"),
+  contactInfo: text("contact_info"),
+  imageUrl: text("image_url"),
+  createdBy: varchar("created_by"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const tournaments = pgTable("tournaments", {
+export const federations = pgTable("federations", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
   description: text("description"),
-  martialArt: text("martial_art").notNull(),
-  ageMin: integer("age_min").notNull(),
-  ageMax: integer("age_max").notNull(),
-  date: text("date").notNull(),
-  location: text("location").notNull(),
-  city: text("city").notNull(),
-  state: text("state").notNull(),
-  entryFee: decimal("entry_fee", { precision: 8, scale: 2 }).notNull(),
-  maxParticipants: integer("max_participants").notNull(),
-  spotsRemaining: integer("spots_remaining").notNull(),
-  rules: text("rules"),
-  featured: boolean("featured").default(false),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const tournamentRegistrations = pgTable("tournament_registrations", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  tournamentId: varchar("tournament_id").notNull(),
-  studentId: varchar("student_id").notNull(),
-  weightClass: text("weight_class"),
-  status: text("status").notNull().default("registered"),
+  logoUrl: text("logo_url"),
+  websiteUrl: text("website_url"),
+  isFeatured: boolean("is_featured").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
 export const reviews = pgTable("reviews", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  masterId: varchar("master_id").notNull(),
   studentId: varchar("student_id").notNull(),
-  studentName: text("student_name").notNull(),
+  masterId: varchar("master_id").notNull(),
+  bookingId: varchar("booking_id"),
   rating: integer("rating").notNull(),
   comment: text("comment"),
+  studentName: text("student_name").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({ username: true, password: true, role: true });
-export const insertMasterSchema = createInsertSchema(masters).omit({ id: true, createdAt: true });
-export const insertStudentSchema = createInsertSchema(students).omit({ id: true, createdAt: true });
-export const insertParentSchema = createInsertSchema(parents).omit({ id: true, createdAt: true });
-export const insertClassSchema = createInsertSchema(classes).omit({ id: true, createdAt: true });
-export const insertBookingSchema = createInsertSchema(bookings).omit({ id: true, createdAt: true });
-export const insertTournamentSchema = createInsertSchema(tournaments).omit({ id: true, createdAt: true });
-export const insertTournamentRegistrationSchema = createInsertSchema(tournamentRegistrations).omit({ id: true, createdAt: true });
+export const notifications = pgTable("notifications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull(),
+  type: text("type").notNull(),
+  title: text("title").notNull(),
+  message: text("message"),
+  isRead: boolean("is_read").notNull().default(false),
+  link: text("link"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true });
+export const insertMasterProfileSchema = createInsertSchema(masterProfiles).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertStudentProfileSchema = createInsertSchema(studentProfiles).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertBookingSchema = createInsertSchema(bookings).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertEventSchema = createInsertSchema(events).omit({ id: true, createdAt: true });
+export const insertFederationSchema = createInsertSchema(federations).omit({ id: true, createdAt: true });
 export const insertReviewSchema = createInsertSchema(reviews).omit({ id: true, createdAt: true });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
-export type Master = typeof masters.$inferSelect;
-export type InsertMaster = z.infer<typeof insertMasterSchema>;
-export type Student = typeof students.$inferSelect;
-export type InsertStudent = z.infer<typeof insertStudentSchema>;
-export type Parent = typeof parents.$inferSelect;
-export type InsertParent = z.infer<typeof insertParentSchema>;
-export type Class = typeof classes.$inferSelect;
-export type InsertClass = z.infer<typeof insertClassSchema>;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type MasterProfile = typeof masterProfiles.$inferSelect;
+export type InsertMasterProfile = z.infer<typeof insertMasterProfileSchema>;
+export type StudentProfile = typeof studentProfiles.$inferSelect;
+export type InsertStudentProfile = z.infer<typeof insertStudentProfileSchema>;
 export type Booking = typeof bookings.$inferSelect;
 export type InsertBooking = z.infer<typeof insertBookingSchema>;
-export type Tournament = typeof tournaments.$inferSelect;
-export type InsertTournament = z.infer<typeof insertTournamentSchema>;
-export type TournamentRegistration = typeof tournamentRegistrations.$inferSelect;
-export type InsertTournamentRegistration = z.infer<typeof insertTournamentRegistrationSchema>;
+export type Event = typeof events.$inferSelect;
+export type InsertEvent = z.infer<typeof insertEventSchema>;
+export type Federation = typeof federations.$inferSelect;
+export type InsertFederation = z.infer<typeof insertFederationSchema>;
 export type Review = typeof reviews.$inferSelect;
 export type InsertReview = z.infer<typeof insertReviewSchema>;
+export type MartialArtsJourney = typeof martialArtsJourney.$inferSelect;
+export type Notification = typeof notifications.$inferSelect;

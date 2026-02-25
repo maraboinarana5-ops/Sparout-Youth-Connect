@@ -1,82 +1,82 @@
-# Sparout - Youth Martial Arts Platform
+# Sparout - India's Premier Martial Arts Marketplace
 
 ## Overview
-Sparout is a mobile-first web application connecting youth martial arts students with verified masters, empowering parents with monitoring tools, and organizing tournaments across all disciplines.
+Sparout is a mobile-first web application connecting martial arts students with verified masters, empowering parents with monitoring tools, and organizing tournaments across 14+ disciplines. India-focused with INR pricing.
 
 ## Tech Stack
-- **Frontend:** React + Vite + TypeScript, Tailwind CSS, Shadcn UI, Wouter (routing), TanStack Query
-- **Backend:** Express.js + TypeScript
+- **Framework:** Next.js 16 (App Router) + TypeScript
 - **Database:** PostgreSQL with Drizzle ORM
-- **Styling:** Custom theme with primary orange (#FF6B35), secondary navy (#1B2A4A), Plus Jakarta Sans font
+- **Styling:** Tailwind CSS with custom brand theme
+- **Brand Colors:** Navy #0A1628, Orange #FF6B2B, Gold #FFB800
+- **Font:** Inter (system-ui fallback)
+- **Icons:** lucide-react, react-icons/si (company logos)
 
 ## Project Structure
 ```
-client/src/
-  pages/         - All page components
-  components/    - Shared components (bottom-nav, ui/)
-  hooks/         - Custom hooks
-  lib/           - Utilities (queryClient, auth)
+app/
+  page.tsx                  - Homepage (hero, stats, featured masters, events, partners)
+  layout.tsx                - Root layout (navbar, footer, mobile-nav)
+  globals.css               - Tailwind base + CSS variables
+  not-found.tsx             - 404 page
+  (auth)/
+    login/page.tsx          - Login page
+    signup/page.tsx         - 3-step signup (info → role → done)
+    onboarding/page.tsx     - Post-signup profile completion
+  masters/page.tsx          - Master directory with search/filters
+  master/[username]/page.tsx - Individual master profile
+  student/[username]/page.tsx - Student profile (journey timeline)
+  events/page.tsx           - Events listing
+  events/[id]/page.tsx      - Event detail
+  bookings/page.tsx         - Booking form (linked from master profile)
+  partners/page.tsx         - Partner federations
+  about/page.tsx            - About Sparout
+  contact/page.tsx          - Contact form
+  settings/page.tsx         - Account settings (profile, password, notifications)
+  dashboard/parent/page.tsx - Parent dashboard
+  admin/
+    page.tsx                - Admin dashboard (stats, recent users, pending verifications)
+    users/page.tsx          - User management table
+    masters/page.tsx        - Master verification & featuring
+    events/page.tsx         - Event CRUD
+    federations/page.tsx    - Federation management
+  api/
+    health/route.ts         - Health check endpoint
 
-server/
-  index.ts       - Express server entry point
-  routes.ts      - API routes
-  storage.ts     - Database storage layer (PostgreSQL via Drizzle)
-  seed.ts        - Seed data
+components/
+  navbar.tsx                - Dark navy top navbar (desktop + mobile hamburger)
+  footer.tsx                - Footer (desktop only, hidden on mobile)
+  mobile-nav.tsx            - Fixed bottom mobile navigation (z-[9999])
 
 shared/
-  schema.ts      - Drizzle schemas and Zod validation
+  schema.ts                 - Drizzle ORM schemas (users, master_profiles, student_profiles, etc.)
+
+lib/
+  db.ts                     - Drizzle database client
 ```
 
-## Authentication
-- Client-side auth via `useAuth()` hook from `client/src/lib/auth.tsx`
-- AuthProvider wraps the app in `main.tsx`
-- Stores user in localStorage as `sparout_user`
-- AuthUser has: id, name, email, role (student/master/parent), optional martialArt, beltRank, age
-- /login page has Sign Up and Log In tabs
-- Sign Up: name, email, password, role dropdown
-- Log In: email lookup across students/masters/parents collections
+## User Roles
+- **Student** - Browse masters, book sessions, track martial arts journey
+- **Master** - Profile with styles, pricing, schedule, certifications
+- **Parent** - Manage children's training, view progress, book sessions
+- **Admin** - Platform management (verify masters, manage events, user admin)
 
-## Routes (ALL registered in App.tsx)
-- `/` — Landing page
-- `/discover` — Discover Masters (search + filters)
-- `/masters/:id` — Master Profile (full details, classes, reviews, book button)
-- `/book/:classId` — Booking Flow
-- `/tournaments` — Tournament Hub
-- `/tournaments/:id` — Tournament Detail + Registration
-- `/login` — Sign Up / Log In (tabbed)
-- `/signup` — Legacy signup with role-specific forms
-- `/progress` — Student Progress Dashboard (belt rank, classes, stats)
-- `/dashboard` — Student Dashboard (alt)
-- `/parent-dashboard` — Parent Dashboard
-- `/master-dashboard` — Master Dashboard
-- `/profile` — User Profile (name, email, role, logout)
+## Key Features
+- Username-based routing for masters: `/master/[username]`
+- Username-based routing for students: `/student/[username]`
+- Pricing in INR (₹)
+- Mobile-first with bottom navigation (fixed bottom-0 z-[9999])
+- Desktop: navbar + footer, pb-0
+- Mobile: navbar + bottom nav, pb-20 on main content
+- 3-step booking flow linked from master profile
+- Ring Fight federation partner (https://singular-frangipane-2925f4.netlify.app/)
 
-## Bottom Nav (5 fixed tabs, always visible)
-- Home (`/`)
-- Discover (`/discover`)
-- Tournaments (`/tournaments`)
-- Progress (`/progress`)
-- Profile (`/profile`)
-- Hidden on: /signup, /login, /book/* routes
+## Database Schema (shared/schema.ts)
+Tables: users, master_profiles, student_profiles, martial_arts_journey, bookings, events, federations, reviews, notifications
+- All use varchar IDs with gen_random_uuid()
+- Enums: user_role (master, student, parent, admin), booking_status (pending, confirmed, completed, cancelled)
 
-## Database Tables
-- users, masters, students, parents, classes, bookings, tournaments, tournament_registrations, reviews
-
-## API Endpoints
-All prefixed with `/api/`:
-- GET/POST /masters, GET /masters/:id
-- GET/POST /students, GET /students/:id
-- GET/POST /parents
-- GET/POST /classes, GET /classes/master/:masterId, GET /classes/:id
-- GET/POST /bookings, PATCH /bookings/:id/status
-- GET/POST /tournaments, GET /tournaments/:id
-- GET /tournaments/:id/registrations, POST /tournament-registrations
-- GET /reviews/:masterId, POST /reviews
-
-## QueryKey pattern
-Uses `queryKey.join("/")` for URL construction:
-- `["/api/masters"]` → `/api/masters`
-- `["/api/masters", id]` → `/api/masters/123`
-
-## Seed Data
-6 martial arts masters with AI-generated profile photos, 18 classes, 3 tournaments, sample reviews. Auto-seeds on startup if database is empty.
+## Configuration
+- `next.config.mjs` - ESM format (package.json has "type": "module")
+- `postcss.config.mjs` - ESM format
+- `tailwind.config.ts` - Brand colors, CSS variables for shadcn compatibility
+- Workflow: `next dev -p 5000`
