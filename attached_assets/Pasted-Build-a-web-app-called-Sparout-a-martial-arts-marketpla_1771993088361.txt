@@ -1,0 +1,157 @@
+Build a web app called "Sparout" — a martial arts marketplace and community platform.
+
+Tech stack: Next.js 14 (App Router), TypeScript, Tailwind CSS, Supabase (auth + database + storage). Mobile-responsive design.
+
+=== BRAND & DESIGN ===
+
+Colors:
+- Primary: Deep Navy #0A1628
+- Accent: Electric Orange #FF6B2B
+- Background: White #FFFFFF, Light Gray #F5F5F7
+- Text: Dark #1A1A2E, Secondary #6B7280
+- Success/Achievement: Gold #FFB800
+- Error: Red #EF4444
+
+Font: Inter (headings bold, body regular)
+Style: Clean, modern, premium sports platform feel. Think UFC meets LinkedIn. No clutter. Strong CTAs. Dark navbar, white content areas. Cards with subtle shadows. Mobile-first responsive design.
+Language: English only.
+Location: India-focused first (cities, states, pin codes), with architecture ready for global expansion.
+
+=== CORE USERS ===
+
+1. Masters/Coaches — martial arts instructors across ALL disciplines (not just one sport)
+2. Students — people learning martial arts
+3. Parents — managing their children's martial arts journey
+4. Admin (Rana) — platform owner managing everything
+
+=== FEATURES ===
+
+1. AUTH & ONBOARDING
+- Sign up/login with email or Google (Supabase Auth)
+- Role selection during onboarding: Master, Student, or Parent
+- Parents can create and manage multiple child profiles
+- Clean 3-step onboarding flow based on role
+
+2. MASTER PROFILES
+- Name, profile photo, cover photo, bio, location (city, state, India)
+- Martial arts styles multi-select (karate, MMA, jiu-jitsu, taekwondo, boxing, muay thai, kung fu, krav maga, judo, wrestling, kickboxing, ring fight, kalaripayattu, silambam, gatka, and "Other" with custom input)
+- Years of experience, belt ranks, certifications (text + photo upload)
+- Federation affiliations
+- Training formats: in-person, online, group class, private session
+- Pricing: per session and/or monthly (masters set their own pricing in INR)
+- Class schedule / availability
+- Ratings & reviews from students
+- Verified badge (admin-assigned)
+- Photo/video gallery (up to 10 media items)
+- Contact: phone, email, WhatsApp link
+- Public shareable profile URL (/master/username)
+
+3. STUDENT PROFILES (LinkedIn-style martial arts journey)
+- Name, profile photo, bio, age, location
+- Martial arts timeline: styles trained, start date, current belt/rank for each
+- Achievements: tournaments participated, medals, certificates (with photo uploads)
+- Training history: which masters they've trained with (linked if master is on platform)
+- Skills/techniques tags
+- Goals section (what they're working toward)
+- Public shareable profile URL (/student/username)
+- Profile completeness indicator
+
+4. PARENT DASHBOARD
+- Add/manage multiple child profiles (each child is a student profile)
+- View each child's martial arts journey, progress, and achievements
+- Book sessions on behalf of children
+- View upcoming classes and events
+- Receive notifications about bookings and events
+
+5. SEARCH & DISCOVERY
+- Homepage search bar: "Find a master in [city] for [martial art]"
+- Filter by: martial art style, city/state, price range, rating, training format (online/in-person), gender
+- Sort by: rating, price low-high, price high-low, distance, newest
+- Map view option (pin locations)
+- Featured masters section (admin-curated)
+- "Popular in your city" section
+- Category browse: grid of martial art styles with icons
+
+6. BOOKING & CONTACT
+- "Book a Session" button on master profile → inquiry form (name, preferred date/time, message, martial art interested in)
+- Booking status: pending → confirmed → completed → reviewed
+- In-app messaging between student/parent and master
+- WhatsApp redirect button as backup contact
+- No payment processing (phase 2) — just booking requests
+
+7. FEDERATION & EVENT LISTINGS
+- Partner federations section with logo, name, description, website link
+- Ring Fight (International Ring Fight Federation) as the FIRST featured partner — website: https://singular-frangipane-2925f4.netlify.app/ — display their logo prominently in partners section
+- Federations can list upcoming tournaments/events
+- Event details: name, date, location, martial art, age groups, weight classes, registration link, entry fee, contact
+- Students can mark "Interested" or "Registered" on events
+- Events calendar view (monthly)
+- Upcoming events on homepage
+
+8. ADMIN PANEL (route: /admin, protected)
+- Dashboard: total users, masters, students, parents, bookings, events (stats cards + charts)
+- User management: view all users, filter by role, activate/deactivate accounts
+- Master verification: approve/reject verification requests, assign verified badges
+- Featured masters: select which masters appear in featured section
+- Event management: create/edit/delete events
+- Federation management: add/edit/remove partner federations
+- Reported content/reviews moderation
+- Basic analytics: signups over time, popular martial arts, top cities
+
+9. HOMEPAGE
+- Navbar: Logo (Sparout), Search, Browse Masters, Events, Login/Signup
+- Hero section: "Find Your Master. Build Your Legacy." with search bar and CTA
+- Stats bar: "X Masters | X Students | X Martial Arts | X Cities"
+- Featured Masters carousel
+- How It Works: 3 steps (Search → Connect → Train)
+- Browse by Martial Art: icon grid
+- Upcoming Events section
+- Partner Federations showcase (Ring Fight featured)
+- Testimonials section (hardcoded for now, editable later)
+- Footer: About, Contact, Social links, Legal
+
+10. ADDITIONAL PAGES
+- /about — About Sparout, mission, vision
+- /contact — Contact form
+- /masters — Full master directory with search and filters
+- /events — All events with calendar view
+- /partners — Partner federations page
+- Individual master profile page (/master/[username])
+- Individual student profile page (/student/[username])
+- Settings page (edit profile, change password, notification preferences)
+
+=== DATABASE SCHEMA (Supabase) ===
+
+users: id, email, role (master/student/parent/admin), full_name, avatar_url, created_at, is_active
+master_profiles: id, user_id, display_name, bio, cover_photo_url, city, state, country (default India), styles text[], experience_years, certifications text[], federation_affiliations text[], training_formats text[], price_per_session numeric, price_monthly numeric, currency (default INR), schedule jsonb, phone, whatsapp, is_verified boolean, gallery_urls text[], created_at, updated_at
+student_profiles: id, user_id, display_name, bio, age, city, state, parent_id (nullable, references users.id), goals text, profile_completeness integer, created_at, updated_at
+martial_arts_journey: id, student_id, style, start_date, current_rank, achievements jsonb[], certificate_urls text[]
+bookings: id, student_id, master_id, preferred_date, preferred_time, message, status (pending/confirmed/completed/cancelled), created_at, updated_at
+messages: id, sender_id, receiver_id, booking_id (nullable), content, is_read boolean, created_at
+events: id, federation_id (nullable), title, description, date, end_date, city, state, martial_art, age_groups text[], weight_classes text[], registration_url, entry_fee, contact_info, created_by, created_at
+federations: id, name, description, logo_url, website_url, is_featured boolean, created_at
+reviews: id, student_id, master_id, booking_id, rating (1-5), comment, created_at
+notifications: id, user_id, type, title, message, is_read boolean, link, created_at
+
+=== ROW LEVEL SECURITY ===
+Enable RLS on all tables. Users can only read/write their own data. Master profiles and student profiles are publicly readable. Admin role bypasses all RLS.
+
+=== SEED DATA ===
+Create 1 admin user: admin@sparout.com / password: Admin123!
+Create 3 sample masters with different martial arts and cities (Mumbai, Hyderabad, Delhi)
+Create 2 sample students with journey data
+Create Ring Fight as the first federation partner
+Create 2 sample upcoming events
+
+=== IMPORTANT NOTES ===
+- No payment processing (phase 2)
+- No video streaming (phase 2)
+- No real-time chat (phase 2) — messages are async
+- India-focused: use INR for currency, Indian cities/states in dropdowns
+- All images use Supabase Storage
+- SEO: proper meta tags, Open Graph tags on all pages
+- Loading states and error handling on all pages
+- Toast notifications for user actions
+- 404 page
+- Mobile responsive — must look great on phones
+- Performance: lazy load images, paginate lists
