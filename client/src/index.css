@@ -290,3 +290,7 @@
     inset: -1px;
   }
 }
+
+main, .page-content, [class*="page"], .min-h-screen > div:first-child {
+  padding-bottom: 100px !important;
+}
