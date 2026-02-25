@@ -10,7 +10,7 @@ const children = [
     age: 14,
     currentStyle: "Karate",
     rank: "Purple Belt",
-    instructor: "Sensei Rajesh Kumar",
+    instructor: "Guru Rajesh Kumar",
     nextClass: "Mon, Feb 26 at 6:00 AM",
     progress: 75,
     upcomingEvents: [{ name: "National Karate Championship 2026", date: "March 15, 2026" }],
@@ -19,9 +19,9 @@ const children = [
 ];
 
 const parentBookings = [
-  { id: 1, child: "Aarav Mehta", master: "Sensei Rajesh Kumar", date: "Feb 26, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
-  { id: 2, child: "Aarav Mehta", master: "Sensei Rajesh Kumar", date: "Feb 28, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
-  { id: 3, child: "Aarav Mehta", master: "Coach Deepika Reddy", date: "Mar 1, 2026", time: "10:00 AM", style: "Judo", status: "pending" },
+  { id: 1, child: "Aarav Mehta", master: "Guru Rajesh Kumar", date: "Feb 26, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
+  { id: 2, child: "Aarav Mehta", master: "Guru Rajesh Kumar", date: "Feb 28, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
+  { id: 3, child: "Aarav Mehta", master: "Master Deepa Nair", date: "Mar 1, 2026", time: "10:00 AM", style: "Judo", status: "pending" },
 ];
 
 export default function ParentDashboard() {

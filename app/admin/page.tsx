@@ -12,15 +12,15 @@ const stats = [
 
 const recentUsers = [
   { id: 1, name: "Aarav Mehta", email: "aarav@example.com", role: "student", status: "active", joined: "Feb 24, 2026" },
-  { id: 2, name: "Priya Nair", email: "priya@example.com", role: "master", status: "pending", joined: "Feb 23, 2026" },
+  { id: 2, name: "Kavitha Menon", email: "kavitha@example.com", role: "master", status: "pending", joined: "Feb 23, 2026" },
   { id: 3, name: "Ravi Kumar", email: "ravi@example.com", role: "parent", status: "active", joined: "Feb 22, 2026" },
   { id: 4, name: "Simran Kaur", email: "simran@example.com", role: "student", status: "active", joined: "Feb 21, 2026" },
-  { id: 5, name: "Deepak Rao", email: "deepak@example.com", role: "master", status: "pending", joined: "Feb 20, 2026" },
+  { id: 5, name: "Rohan Iyer", email: "rohan@example.com", role: "master", status: "pending", joined: "Feb 20, 2026" },
 ];
 
 const pendingMasters = [
-  { id: 1, name: "Coach Deepak Rao", style: "Boxing", city: "Chennai", experience: 8, applied: "Feb 20, 2026" },
-  { id: 2, name: "Guru Meera Devi", style: "Kalaripayattu", city: "Kochi", experience: 15, applied: "Feb 18, 2026" },
+  { id: 1, name: "Kavitha Menon", style: "Silambam", city: "Chennai", experience: 10, applied: "Feb 23, 2026" },
+  { id: 2, name: "Rohan Iyer", style: "Kalaripayattu", city: "Kochi", experience: 15, applied: "Feb 20, 2026" },
 ];
 
 const navItems = [

@@ -12,13 +12,13 @@ const studentData: Record<string, any> = {
     goals: "Achieve Black Belt by 2027. Compete at national level.",
     profileCompleteness: 85,
     journey: [
-      { style: "Karate", rank: "Purple Belt (3rd Kyu)", startDate: "2023", achievements: ["State Championship Bronze 2025", "District Champion 2024", "Best Kata Award 2024"], instructor: "Sensei Rajesh Kumar" },
-      { style: "Judo", rank: "Yellow Belt", startDate: "2025", achievements: ["Regional Competition Participant"], instructor: "Coach Deepika Reddy" },
+      { style: "Karate", rank: "Purple Belt (3rd Kyu)", startDate: "2023", achievements: ["State Championship Bronze 2025", "District Champion 2024", "Best Kata Award 2024"], instructor: "Guru Rajesh Kumar" },
+      { style: "Judo", rank: "Yellow Belt", startDate: "2025", achievements: ["Regional Competition Participant"], instructor: "Master Deepa Nair" },
     ],
     stats: { totalTraining: "3 years", competitions: 5, medals: 3, styles: 2 },
     upcomingClasses: [
-      { day: "Mon, Feb 26", time: "6:00 AM", style: "Karate", instructor: "Sensei Rajesh" },
-      { day: "Wed, Feb 28", time: "6:00 AM", style: "Karate", instructor: "Sensei Rajesh" },
+      { day: "Mon, Feb 26", time: "6:00 AM", style: "Karate", instructor: "Guru Rajesh" },
+      { day: "Wed, Feb 28", time: "6:00 AM", style: "Karate", instructor: "Guru Rajesh" },
     ],
   },
   "sneha-kapoor": {
@@ -30,12 +30,12 @@ const studentData: Record<string, any> = {
     goals: "Compete in amateur MMA by end of 2026.",
     profileCompleteness: 70,
     journey: [
-      { style: "Jiu-Jitsu", rank: "Blue Belt", startDate: "2024", achievements: ["Bangalore Open Silver 2025"], instructor: "Coach Deepika Reddy" },
-      { style: "MMA", rank: "Beginner", startDate: "2026", achievements: [], instructor: "Coach Priya Sharma" },
+      { style: "Jiu-Jitsu", rank: "Blue Belt", startDate: "2024", achievements: ["Bangalore Open Silver 2025"], instructor: "Master Deepa Nair" },
+      { style: "MMA", rank: "Beginner", startDate: "2026", achievements: [], instructor: "Coach Arjun Reddy" },
     ],
     stats: { totalTraining: "2 years", competitions: 2, medals: 1, styles: 2 },
     upcomingClasses: [
-      { day: "Tue, Feb 27", time: "7:00 AM", style: "MMA", instructor: "Coach Priya" },
+      { day: "Tue, Feb 27", time: "7:00 AM", style: "MMA", instructor: "Coach Arjun" },
     ],
   },
 };

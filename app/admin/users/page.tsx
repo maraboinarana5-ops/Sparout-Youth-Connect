@@ -4,14 +4,16 @@ import Link from "next/link";
 import { ArrowLeft, Search, Filter, Users, Shield, UserCheck, UserX, MoreVertical } from "lucide-react";
 
 const allUsers = [
-  { id: 1, name: "Sensei Rajesh Kumar", email: "rajesh@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 15, 2026", city: "Mumbai" },
-  { id: 2, name: "Coach Priya Sharma", email: "priya@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 20, 2026", city: "Hyderabad" },
-  { id: 3, name: "Guru Ravi Nair", email: "ravi@sparout.com", role: "master", status: "active", verified: true, joined: "Dec 10, 2025", city: "Chennai" },
-  { id: 4, name: "Aarav Mehta", email: "aarav@example.com", role: "student", status: "active", verified: false, joined: "Feb 24, 2026", city: "Mumbai" },
-  { id: 5, name: "Sneha Kapoor", email: "sneha@example.com", role: "student", status: "active", verified: false, joined: "Feb 20, 2026", city: "Bangalore" },
-  { id: 6, name: "Ravi Kumar", email: "ravi@example.com", role: "parent", status: "active", verified: false, joined: "Feb 22, 2026", city: "Delhi" },
-  { id: 7, name: "Deepak Rao", email: "deepak@example.com", role: "master", status: "pending", verified: false, joined: "Feb 20, 2026", city: "Chennai" },
-  { id: 8, name: "Simran Kaur", email: "simran@example.com", role: "student", status: "inactive", verified: false, joined: "Feb 21, 2026", city: "Amritsar" },
+  { id: 1, name: "Guru Rajesh Kumar", email: "rajesh@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 15, 2026", city: "Mumbai" },
+  { id: 2, name: "Sensei Priya Sharma", email: "priya@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 20, 2026", city: "Hyderabad" },
+  { id: 3, name: "Coach Arjun Reddy", email: "arjun@sparout.com", role: "master", status: "active", verified: true, joined: "Dec 10, 2025", city: "Delhi" },
+  { id: 4, name: "Master Deepa Nair", email: "deepa@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 5, 2026", city: "Bangalore" },
+  { id: 5, name: "Guru Suresh Pillai", email: "suresh@sparout.com", role: "master", status: "active", verified: true, joined: "Dec 15, 2025", city: "Chennai" },
+  { id: 6, name: "Coach Amit Patel", email: "amit@sparout.com", role: "master", status: "active", verified: true, joined: "Jan 25, 2026", city: "Pune" },
+  { id: 7, name: "Aarav Mehta", email: "aarav@example.com", role: "student", status: "active", verified: false, joined: "Feb 24, 2026", city: "Mumbai" },
+  { id: 8, name: "Sneha Kapoor", email: "sneha@example.com", role: "student", status: "active", verified: false, joined: "Feb 20, 2026", city: "Bangalore" },
+  { id: 9, name: "Ravi Kumar", email: "ravi@example.com", role: "parent", status: "active", verified: false, joined: "Feb 22, 2026", city: "Delhi" },
+  { id: 10, name: "Simran Kaur", email: "simran@example.com", role: "student", status: "inactive", verified: false, joined: "Feb 21, 2026", city: "Pune" },
 ];
 
 export default function AdminUsersPage() {
