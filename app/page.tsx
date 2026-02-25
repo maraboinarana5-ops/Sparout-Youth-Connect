@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Search, ArrowRight, Shield, Users, MapPin, Zap, ChevronRight, Star, Award } from "lucide-react";
-import { SiInstagram, SiTwitter, SiYoutube } from "react-icons/si";
 
 const martialArts = [
   { name: "Karate", emoji: null },

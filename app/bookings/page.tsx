@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Send, Check, MessageCircle } from "lucide-react";
 
 const martialArtOptions = ["Karate", "MMA", "Jiu-Jitsu", "Taekwondo", "Boxing", "Muay Thai", "Kung Fu", "Krav Maga", "Judo", "Wrestling", "Kickboxing", "Kalaripayattu", "Other"];
 
-export default function BookingsPage() {
+function BookingsContent() {
   const searchParams = useSearchParams();
   const masterUsername = searchParams.get("master") || "";
   const [step, setStep] = useState(1);
@@ -109,5 +109,13 @@ export default function BookingsPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function BookingsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="text-gray-400">Loading...</div></div>}>
+      <BookingsContent />
+    </Suspense>
   );
 }
