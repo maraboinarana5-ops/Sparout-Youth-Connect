@@ -32,7 +32,7 @@ export default function MasterDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-[120px]">
+    <div className="min-h-screen bg-background pb-0">
       <div className="bg-gradient-to-br from-[#1B2A4A] to-[#2D4470] p-6 pb-8">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-4">

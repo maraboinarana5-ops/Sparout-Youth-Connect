@@ -50,7 +50,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <div className={showBottomNav ? "pb-[100px]" : ""}>
+        <div className={showBottomNav ? "pb-28" : ""}>
           <Router />
         </div>
         {showBottomNav && <BottomNav />}
