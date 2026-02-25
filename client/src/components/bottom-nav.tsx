@@ -1,49 +1,16 @@
 import { Link, useLocation } from "wouter";
-import { Home, Search, Trophy, TrendingUp, User, BookOpen, Eye } from "lucide-react";
-import { useAuth } from "@/lib/auth";
+import { Home, Search, Trophy, TrendingUp, User } from "lucide-react";
+
+const navItems = [
+  { path: "/", label: "Home", icon: Home },
+  { path: "/discover", label: "Discover", icon: Search },
+  { path: "/tournaments", label: "Tournaments", icon: Trophy },
+  { path: "/progress", label: "Progress", icon: TrendingUp },
+  { path: "/profile", label: "Profile", icon: User },
+];
 
 export function BottomNav() {
   const [location] = useLocation();
-  const { user, isAuthenticated } = useAuth();
-
-  const getNavItems = () => {
-    if (!isAuthenticated || !user) {
-      return [
-        { path: "/", label: "Home", icon: Home },
-        { path: "/discover", label: "Discover", icon: Search },
-        { path: "/tournaments", label: "Tournaments", icon: Trophy },
-        { path: "/signup", label: "Join", icon: User },
-      ];
-    }
-
-    if (user.role === "master") {
-      return [
-        { path: "/", label: "Home", icon: Home },
-        { path: "/master-dashboard", label: "Dashboard", icon: BookOpen },
-        { path: "/tournaments", label: "Tournaments", icon: Trophy },
-        { path: "/profile", label: "Profile", icon: User },
-      ];
-    }
-
-    if (user.role === "parent") {
-      return [
-        { path: "/", label: "Home", icon: Home },
-        { path: "/parent-dashboard", label: "Monitor", icon: Eye },
-        { path: "/discover", label: "Discover", icon: Search },
-        { path: "/profile", label: "Profile", icon: User },
-      ];
-    }
-
-    return [
-      { path: "/", label: "Home", icon: Home },
-      { path: "/discover", label: "Discover", icon: Search },
-      { path: "/tournaments", label: "Tournaments", icon: Trophy },
-      { path: "/dashboard", label: "Progress", icon: TrendingUp },
-      { path: "/profile", label: "Profile", icon: User },
-    ];
-  };
-
-  const navItems = getNavItems();
 
   const isActive = (path: string) => {
     if (path === "/") return location === "/";

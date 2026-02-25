@@ -19,8 +19,8 @@ export default function Profile() {
           </div>
           <h2 className="text-xl font-bold text-foreground mb-2">Not Logged In</h2>
           <p className="text-sm text-muted-foreground mb-6">Create an account to track your progress and manage your profile.</p>
-          <Link href="/signup">
-            <Button className="bg-[#FF6B35] text-white w-full" data-testid="button-signup-cta">Join Sparout</Button>
+          <Link href="/login">
+            <Button className="bg-[#FF6B35] text-white w-full" data-testid="button-login-cta">Sign Up / Log In</Button>
           </Link>
         </div>
       </div>
@@ -33,7 +33,6 @@ export default function Profile() {
   };
 
   const roleLabel = user.role === "master" ? "Master Account" : user.role === "parent" ? "Parent Account" : "Student Account";
-  const dashboardPath = user.role === "master" ? "/master-dashboard" : user.role === "parent" ? "/parent-dashboard" : "/dashboard";
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -102,8 +101,8 @@ export default function Profile() {
             {user.role === "master" ? "Teaching" : user.role === "parent" ? "Monitoring" : "Training"}
           </h2>
           <Card className="border-card-border divide-y divide-border">
-            <Link href={dashboardPath}>
-              <button className="w-full p-4 flex items-center gap-3 text-left" data-testid="button-dashboard">
+            <Link href="/progress">
+              <button className="w-full p-4 flex items-center gap-3 text-left" data-testid="button-progress">
                 <BookOpen className="w-5 h-5 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground flex-1">
                   {user.role === "master" ? "My Classes" : user.role === "parent" ? "Child Monitor" : "Training History"}
@@ -111,24 +110,20 @@ export default function Profile() {
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
               </button>
             </Link>
-            {user.role !== "parent" && (
-              <Link href="/tournaments">
-                <button className="w-full p-4 flex items-center gap-3 text-left" data-testid="button-my-tournaments">
-                  <Trophy className="w-5 h-5 text-muted-foreground" />
-                  <span className="text-sm font-medium text-foreground flex-1">Tournaments</span>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </Link>
-            )}
-            {user.role === "student" && (
-              <Link href="/discover">
-                <button className="w-full p-4 flex items-center gap-3 text-left" data-testid="button-my-masters">
-                  <Star className="w-5 h-5 text-muted-foreground" />
-                  <span className="text-sm font-medium text-foreground flex-1">Find Masters</span>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </Link>
-            )}
+            <Link href="/tournaments">
+              <button className="w-full p-4 flex items-center gap-3 text-left" data-testid="button-my-tournaments">
+                <Trophy className="w-5 h-5 text-muted-foreground" />
+                <span className="text-sm font-medium text-foreground flex-1">Tournaments</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </button>
+            </Link>
+            <Link href="/discover">
+              <button className="w-full p-4 flex items-center gap-3 text-left" data-testid="button-find-masters">
+                <Star className="w-5 h-5 text-muted-foreground" />
+                <span className="text-sm font-medium text-foreground flex-1">Find Masters</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </button>
+            </Link>
           </Card>
         </div>
 

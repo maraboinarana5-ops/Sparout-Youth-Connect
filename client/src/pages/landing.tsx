@@ -9,7 +9,7 @@ import logoPath from "@assets/ChatGPT_Image_Feb_24,_2026,_08_05_48_PM_1771981595
 export default function Landing() {
   const { user, isAuthenticated } = useAuth();
 
-  const dashboardPath = !isAuthenticated ? "/signup" : user?.role === "master" ? "/master-dashboard" : user?.role === "parent" ? "/parent-dashboard" : "/dashboard";
+  const dashboardPath = !isAuthenticated ? "/login" : "/progress";
 
   return (
     <div className="min-h-screen bg-background pb-20">
@@ -49,7 +49,7 @@ export default function Landing() {
               The youth martial arts platform connecting students with verified masters, empowering parents, and organizing tournaments.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="/signup">
+              <Link href="/login">
                 <Button size="lg" className="bg-[#FF6B35] text-white px-8 text-base" data-testid="button-hero-cta">
                   Start Your Journey
                   <ChevronRight className="ml-1 h-4 w-4" />
@@ -72,7 +72,7 @@ export default function Landing() {
             <p className="text-muted-foreground max-w-lg mx-auto">Whether you're a student, master, or parent — Sparout has a place for you.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link href="/signup?role=student">
+            <Link href="/login">
               <Card className="p-6 cursor-pointer group hover-elevate transition-all border-card-border">
                 <div className="w-14 h-14 rounded-md bg-[#FF6B35]/10 flex items-center justify-center mb-4">
                   <Target className="w-7 h-7 text-[#FF6B35]" />
@@ -87,7 +87,7 @@ export default function Landing() {
               </Card>
             </Link>
 
-            <Link href="/signup?role=master">
+            <Link href="/login">
               <Card className="p-6 cursor-pointer group hover-elevate transition-all border-card-border">
                 <div className="w-14 h-14 rounded-md bg-[#1B2A4A]/10 dark:bg-[#1B2A4A]/30 flex items-center justify-center mb-4">
                   <Flame className="w-7 h-7 text-[#1B2A4A] dark:text-[#6B8FD4]" />
@@ -102,7 +102,7 @@ export default function Landing() {
               </Card>
             </Link>
 
-            <Link href="/signup?role=parent">
+            <Link href="/login">
               <Card className="p-6 cursor-pointer group hover-elevate transition-all border-card-border">
                 <div className="w-14 h-14 rounded-md bg-green-500/10 flex items-center justify-center mb-4">
                   <Eye className="w-7 h-7 text-green-600 dark:text-green-400" />
@@ -150,25 +150,9 @@ export default function Landing() {
 
       <section className="py-16 md:py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-[#FF6B35]">800+</div>
-              <div className="text-sm text-muted-foreground mt-1">Active Students</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-[#FF6B35]">50+</div>
-              <div className="text-sm text-muted-foreground mt-1">Verified Masters</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-[#FF6B35]">6</div>
-              <div className="text-sm text-muted-foreground mt-1">Martial Arts</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-[#FF6B35]">25+</div>
-              <div className="text-sm text-muted-foreground mt-1">Tournaments</div>
-            </div>
-          </div>
-          <Link href="/signup">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Ready to Begin?</h2>
+          <p className="text-muted-foreground max-w-lg mx-auto mb-8">Join our growing community of students, masters, and parents across all martial arts disciplines.</p>
+          <Link href="/login">
             <Button size="lg" className="bg-[#FF6B35] text-white px-10" data-testid="button-bottom-cta">
               Join Sparout Today
             </Button>
