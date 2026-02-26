@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Award, Target, Calendar, Trophy, TrendingUp, BookOpen } from "lucide-react";
 
-export default async function StudentProfilePage({ params }: { params: { username: string } }) {
+export default async function StudentProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
   const student = await prisma.studentProfile.findUnique({
     where: { username },

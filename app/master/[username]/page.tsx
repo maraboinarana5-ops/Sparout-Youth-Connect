@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import MasterProfileClient from "./master-profile-client";
 
-export default async function MasterProfilePage({ params }: { params: { username: string } }) {
+export default async function MasterProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
   const master = await prisma.masterProfile.findUnique({
     where: { username },
