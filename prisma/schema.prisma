@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  student
+  master
+  parent
+  admin
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  completed
+  cancelled
+  reviewed
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  passwordHash  String    @map("password_hash")
+  fullName      String    @map("full_name")
+  role          UserRole  @default(student)
+  phone         String?
+  city          String?
+  state         String?
+  avatarUrl     String?   @map("avatar_url")
+  isActive      Boolean   @default(true) @map("is_active")
+  isVerified    Boolean   @default(false) @map("is_verified")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  masterProfile   MasterProfile?
+  studentProfile  StudentProfile?
+  bookingsAsMaster  Booking[]  @relation("MasterBookings")
+  bookingsAsStudent Booking[]  @relation("StudentBookings")
+  reviewsGiven      Review[]   @relation("ReviewAuthor")
+  reviewsReceived   Review[]   @relation("ReviewTarget")
+  notifications     Notification[]
+
+  @@map("users")
+}
+
+model MasterProfile {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @unique @map("user_id")
+  username        String   @unique
+  styles          String[]
+  bio             String?
+  experience      Int      @default(0)
+  certifications  String[]
+  formats         String[]
+  pricePerClass   Int?     @map("price_per_class")
+  priceMonthly    Int?     @map("price_monthly")
+  whatsapp        String?
+  isFeatured      Boolean  @default(false) @map("is_featured")
+  gallery         String[]
+  schedule        Json?
+
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("master_profiles")
+}
+
+model StudentProfile {
+  id                  Int      @id @default(autoincrement())
+  userId              Int      @unique @map("user_id")
+  username            String   @unique
+  age                 Int?
+  goals               String?
+  profileCompleteness Int      @default(0) @map("profile_completeness")
+  parentUserId        Int?     @map("parent_user_id")
+
+  user    User              @relation(fields: [userId], references: [id])
+  journey MartialArtsJourney[]
+
+  @@map("student_profiles")
+}
+
+model MartialArtsJourney {
+  id            Int      @id @default(autoincrement())
+  studentId     Int      @map("student_id")
+  style         String
+  rank          String?
+  startDate     String?  @map("start_date")
+  achievements  String[]
+  instructor    String?
+
+  student StudentProfile @relation(fields: [studentId], references: [id])
+
+  @@map("martial_arts_journey")
+}
+
+model Booking {
+  id          Int           @id @default(autoincrement())
+  studentId   Int           @map("student_id")
+  masterId    Int           @map("master_id")
+  style       String
+  date        String
+  time        String
+  message     String?
+  status      BookingStatus @default(pending)
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  student User @relation("StudentBookings", fields: [studentId], references: [id])
+  master  User @relation("MasterBookings", fields: [masterId], references: [id])
+
+  @@map("bookings")
+}
+
+model Event {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String?
+  martialArt   String   @map("martial_art")
+  date         String
+  city         String
+  state        String
+  ageGroups    String[] @map("age_groups")
+  weightClasses String[] @map("weight_classes")
+  entryFee     String?  @map("entry_fee")
+  spotsLeft    Int?     @map("spots_left")
+  federationId Int?     @map("federation_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  federation Federation? @relation(fields: [federationId], references: [id])
+
+  @@map("events")
+}
+
+model Federation {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  logoUrl     String?  @map("logo_url")
+  websiteUrl  String?  @map("website_url")
+  isPartner   Boolean  @default(false) @map("is_partner")
+
+  events Event[]
+
+  @@map("federations")
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  authorId   Int      @map("author_id")
+  targetId   Int      @map("target_id")
+  rating     Int
+  text       String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  author User @relation("ReviewAuthor", fields: [authorId], references: [id])
+  target User @relation("ReviewTarget", fields: [targetId], references: [id])
+
+  @@map("reviews")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  title     String
+  message   String
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
