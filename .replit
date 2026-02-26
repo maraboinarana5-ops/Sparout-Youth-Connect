@@ -15,7 +15,7 @@ PORT = "5000"
 [deployment]
 deploymentTarget = "autoscale"
 run = ["bash", "-c", "npx next start -p ${PORT:-5000}"]
-build = ["npx", "next", "build"]
+build = ["bash", "-c", "npx prisma generate && npx next build"]
 publicDir = "dist/public"
 
 [workflows]
