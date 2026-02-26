@@ -1,36 +1,37 @@
-"use client";
+import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Calendar, BookOpen, Trophy, Users, TrendingUp, ChevronRight, Clock, MapPin } from "lucide-react";
+import { Calendar, Trophy, TrendingUp, ChevronRight, Clock } from "lucide-react";
 
-const children = [
-  {
-    id: 1,
-    name: "Aarav Mehta",
-    username: "aarav-mehta",
-    age: 14,
-    currentStyle: "Karate",
-    rank: "Purple Belt",
-    instructor: "Guru Rajesh Kumar",
-    nextClass: "Mon, Feb 26 at 6:00 AM",
-    progress: 75,
-    upcomingEvents: [{ name: "National Karate Championship 2026", date: "March 15, 2026" }],
-    recentAchievements: ["State Championship Bronze 2025"],
-  },
-];
+export default async function ParentDashboard() {
+  const students = await prisma.studentProfile.findMany({
+    include: {
+      user: true,
+      journey: true,
+    },
+    take: 5,
+  });
 
-const parentBookings = [
-  { id: 1, child: "Aarav Mehta", master: "Guru Rajesh Kumar", date: "Feb 26, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
-  { id: 2, child: "Aarav Mehta", master: "Guru Rajesh Kumar", date: "Feb 28, 2026", time: "6:00 AM", style: "Karate", status: "confirmed" },
-  { id: 3, child: "Aarav Mehta", master: "Master Deepa Nair", date: "Mar 1, 2026", time: "10:00 AM", style: "Judo", status: "pending" },
-];
+  const events = await prisma.event.findMany({ take: 3, orderBy: { createdAt: "asc" } });
 
-export default function ParentDashboard() {
+  const children = students.map((s) => ({
+    id: s.id,
+    name: s.user.fullName,
+    username: s.username,
+    age: s.age,
+    currentStyle: s.journey[0]?.style ?? "N/A",
+    rank: s.journey[0]?.rank ?? "Beginner",
+    instructor: s.journey[0]?.instructor ?? "N/A",
+    progress: s.profileCompleteness,
+    recentAchievements: s.journey.flatMap((j) => j.achievements).slice(0, 2),
+    upcomingEvents: events.slice(0, 1).map((e) => ({ name: e.title, date: e.date })),
+  }));
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-navy text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-2xl font-bold" data-testid="text-page-title">Parent Dashboard</h1>
-          <p className="text-white/60 text-sm mt-1">Manage your children's martial arts training</p>
+          <p className="text-white/60 text-sm mt-1">Manage your children&apos;s martial arts training</p>
         </div>
       </div>
 
@@ -60,9 +61,9 @@ export default function ParentDashboard() {
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-3 rounded-lg bg-gray-50">
                   <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-                    <Clock className="w-4 h-4 text-orange" /> Next Class
+                    <Clock className="w-4 h-4 text-orange" /> Current Style
                   </div>
-                  <div className="text-sm font-medium text-navy">{child.nextClass}</div>
+                  <div className="text-sm font-medium text-navy">{child.currentStyle} - {child.rank}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-gray-50">
                   <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
@@ -91,38 +92,6 @@ export default function ParentDashboard() {
               )}
             </div>
           ))}
-        </div>
-
-        <h2 className="text-lg font-bold text-navy mb-4">Bookings</h2>
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden mb-8">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-100">
-                <tr>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase px-4 py-3">Child</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase px-4 py-3">Master</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase px-4 py-3">Date & Time</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase px-4 py-3">Style</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase px-4 py-3">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {parentBookings.map((booking) => (
-                  <tr key={booking.id} className="hover:bg-gray-50" data-testid={`booking-row-${booking.id}`}>
-                    <td className="px-4 py-3 text-sm font-medium text-navy">{booking.child}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{booking.master}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{booking.date} at {booking.time}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{booking.style}</td>
-                    <td className="px-4 py-3">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                        booking.status === "confirmed" ? "bg-green-100 text-green-600" : "bg-yellow-100 text-yellow-600"
-                      }`}>{booking.status}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
