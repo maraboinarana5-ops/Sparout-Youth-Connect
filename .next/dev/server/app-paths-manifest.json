@@ -1,5 +1,4 @@
 {
-  "/events/page": "app/events/page.js",
   "/master/[username]/page": "app/master/[username]/page.js",
   "/masters/page": "app/masters/page.js",
   "/page": "app/page.js"
