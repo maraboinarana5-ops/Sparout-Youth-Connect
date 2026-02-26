@@ -46,7 +46,7 @@ const sampleEvents = [
         id: "2",
         title: "Ring Fight Championship - Delhi",
         description: "International Ring Fight Federation sanctioned event. Professional and amateur divisions.",
-        martialArt: "MMA",
+        martialArt: "Ring Fight",
         date: "April 2, 2026",
         city: "New Delhi",
         state: "Delhi",

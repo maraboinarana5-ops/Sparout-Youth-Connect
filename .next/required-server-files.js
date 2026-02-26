@@ -102,7 +102,12 @@ self.__SERVER_FILES_MANIFEST={
     },
     "outputFileTracingRoot": "/home/runner/workspace",
     "allowedDevOrigins": [
-      "*"
+      "localhost",
+      "127.0.0.1",
+      "0.0.0.0",
+      "*.replit.dev",
+      "*.repl.co",
+      "*.janeway.replit.dev"
     ],
     "cacheComponents": false,
     "cacheLife": {
